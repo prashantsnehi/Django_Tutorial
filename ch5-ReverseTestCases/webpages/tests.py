@@ -13,6 +13,14 @@ class HomePageTest(SimpleTestCase):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         
+    def test_template_name_exists(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'home.html')
+    
+    def test_template_content(self):
+        response = self.client.get('/')
+        self.assertContains(response, '<h1>Welcome to Django!!!</h1>')
+        
 
 class HomePageAbsoluteUrlTest(SimpleTestCase):
     def test_url_exists_at_correct_location(self):
